@@ -11,7 +11,7 @@ class Matrix:
         self.cols = cols
         self._values_store = defaultdict(lambda: 0)
 
-    def to_list_of_lists(self) -> List[List[Numeric]]:
+    def to_list_of_rows(self) -> List[List[Numeric]]:
         return [
             [self._values_store[r, c] for c in range(self.cols)]
             for r in range(self.rows)
@@ -22,4 +22,4 @@ class Matrix:
 
     def __str__(self):
         cols_fmt = "\t".join(["{:10f}"] * self.cols)
-        return "\n".join(cols_fmt.format(*r).strip() for r in (self.to_list_of_lists()))
+        return "\n".join(cols_fmt.format(*r).strip() for r in (self.to_list_of_rows()))
