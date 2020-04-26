@@ -19,3 +19,7 @@ class Matrix:
 
     def __setitem__(self, key: Tuple[int], value: Numeric):
         self._values_store[key] = value
+
+    def __str__(self):
+        cols_fmt = "\t".join(["{:10f}"] * self.cols)
+        return "\n".join(cols_fmt.format(*r).strip() for r in (self.to_list_of_lists()))
