@@ -17,7 +17,7 @@ class Matrix:
             for r in range(self.rows)
         ]
 
-    def __setitem__(self, key: Tuple[int], value: Numeric):
+    def __setitem__(self, key: Tuple[int, int], value: Numeric):
         self._values_store[key] = value
 
     def __str__(self):
