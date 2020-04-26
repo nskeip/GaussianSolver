@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List, Tuple, TypeVar
 
 
@@ -8,16 +9,13 @@ class Matrix:
     def __init__(self, rows: int, cols: int):
         self.rows = rows
         self.cols = cols
-        self.values = [0] * rows * cols
+        self._values_store = defaultdict(lambda: 0)
 
     def __getitem__(self, item: Tuple[int, int]):
-        return self.values[self.coordinate_to_index(item)]
+        return self._values_store[item]
 
     def __setitem__(self, key: Tuple[int, int], new_value: Numeric):
-        self.values = [
-            v if i != self.coordinate_to_index(key) else new_value
-            for i, v in enumerate(self.values)
-        ]
+        self._values_store[key] = new_value
 
     def __str__(self):
         cols_fmt = "\t".join(["{:10f}"] * self.cols)
@@ -31,10 +29,7 @@ class Matrix:
         return row * self.cols + col
 
     def row_as_list(self, n: int) -> List[int]:
-        start = self.coordinate_to_index((n, 0))
-        return self.values[start : start + self.cols]
+        return [self._values_store[n, col] for col in range(self.cols)]
 
     def col_as_list(self, n: int) -> List[int]:
-        start = self.coordinate_to_index((0, n))
-        stop = self.coordinate_to_index((self.rows - 1, n + 1))
-        return self.values[start : stop : self.cols]
+        return [self._values_store[row, n] for row in range(self.rows)]
