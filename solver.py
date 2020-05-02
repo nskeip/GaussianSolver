@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Dict, Iterator, Optional, Tuple, TypeVar
+from typing import Iterator, Optional, Tuple, TypeVar
 
 
 Numeric = TypeVar("Numeric", int, float)
