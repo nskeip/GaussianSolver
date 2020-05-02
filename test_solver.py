@@ -28,3 +28,36 @@ class TestMatrix:
         assert m.coordinate_to_index((3, 4)) == 19
         assert m.coordinate_to_index((1, 0)) == 5
         assert m.coordinate_to_index((1, 1)) == 6
+
+    @staticmethod
+    def test_transposed():
+        m = Matrix(rows=2, cols=3)
+
+        m[0, 0] = 0
+        m[0, 1] = 1
+        m[0, 2] = 2
+
+        m[1, 0] = 3
+        m[1, 1] = 4
+        m[1, 2] = 5
+
+        m[2, 0] = 6
+        m[2, 1] = 7
+        m[2, 2] = 8
+
+        t = m.transposed()
+
+        assert t.rows == m.cols
+        assert t.cols == m.rows
+
+        assert t[0, 0] == 0
+        assert t[0, 1] == 3
+        assert t[0, 2] == 6
+
+        assert t[1, 0] == 1
+        assert t[1, 1] == 4
+        assert t[1, 2] == 7
+
+        assert t[2, 0] == 2
+        assert t[2, 1] == 5
+        assert t[2, 2] == 8

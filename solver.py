@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import Iterator, Tuple, TypeVar
+from typing import Dict, Iterator, Optional, Tuple, TypeVar
 
 
 Numeric = TypeVar("Numeric", int, float)
@@ -7,10 +7,10 @@ CoordinatePair = Tuple[int, int]
 
 
 class Matrix:
-    def __init__(self, rows: int, cols: int):
+    def __init__(self, rows: int, cols: int, store: Optional[defaultdict] = None):
         self.rows = rows
         self.cols = cols
-        self._values_store = defaultdict(int)
+        self._values_store = store or defaultdict(int)
 
     def __getitem__(self, item: CoordinatePair):
         return self._values_store[item]
@@ -34,3 +34,9 @@ class Matrix:
 
     def col_n_iter(self, n: int) -> Iterator[int]:
         return (self._values_store[row, n] for row in range(self.rows))
+
+    def transposed(self) -> "Matrix":
+        transposed_store = defaultdict(
+            int, {(col, row): v for (row, col), v in self._values_store.items()}
+        )
+        return Matrix(rows=self.cols, cols=self.rows, store=transposed_store)
