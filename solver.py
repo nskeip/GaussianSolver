@@ -9,7 +9,7 @@ class Matrix:
     def __init__(self, rows: int, cols: int):
         self.rows = rows
         self.cols = cols
-        self._values_store = defaultdict(lambda: 0)
+        self._values_store = defaultdict(int)
 
     def __getitem__(self, item: Tuple[int, int]):
         return self._values_store[item]
