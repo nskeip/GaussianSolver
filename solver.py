@@ -3,6 +3,7 @@ from typing import Iterator, Tuple, TypeVar
 
 
 Numeric = TypeVar("Numeric", int, float)
+CoordinatePair = Tuple[int, int]
 
 
 class Matrix:
@@ -11,10 +12,10 @@ class Matrix:
         self.cols = cols
         self._values_store = defaultdict(int)
 
-    def __getitem__(self, item: Tuple[int, int]):
+    def __getitem__(self, item: CoordinatePair):
         return self._values_store[item]
 
-    def __setitem__(self, key: Tuple[int, int], new_value: Numeric):
+    def __setitem__(self, key: CoordinatePair, new_value: Numeric):
         self._values_store[key] = new_value
 
     def __str__(self):
@@ -24,8 +25,8 @@ class Matrix:
             for row_n in range(self.rows)
         )
 
-    def coordinate_to_index(self, coord_tuple: Tuple[int, int]) -> int:
-        row, col = coord_tuple
+    def coordinate_to_index(self, coord_pair: CoordinatePair) -> int:
+        row, col = coord_pair
         return row * self.cols + col
 
     def row_n_iter(self, n: int) -> Iterator[int]:
