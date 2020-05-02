@@ -1,5 +1,5 @@
 from collections import defaultdict
-from typing import List, Tuple, TypeVar
+from typing import Iterator, Tuple, TypeVar
 
 
 Numeric = TypeVar("Numeric", int, float)
@@ -20,7 +20,7 @@ class Matrix:
     def __str__(self):
         cols_fmt = "\t".join(["{:10f}"] * self.cols)
         return "\n".join(
-            cols_fmt.format(*self.row_as_list(row_n)).strip()
+            cols_fmt.format(*self.row_n_iter(row_n)).strip()
             for row_n in range(self.rows)
         )
 
@@ -28,8 +28,8 @@ class Matrix:
         row, col = coord_tuple
         return row * self.cols + col
 
-    def row_as_list(self, n: int) -> List[int]:
-        return [self._values_store[n, col] for col in range(self.cols)]
+    def row_n_iter(self, n: int) -> Iterator[int]:
+        return (self._values_store[n, col] for col in range(self.cols))
 
-    def col_as_list(self, n: int) -> List[int]:
-        return [self._values_store[row, n] for row in range(self.rows)]
+    def col_n_iter(self, n: int) -> Iterator[int]:
+        return (self._values_store[row, n] for row in range(self.rows))

@@ -18,8 +18,8 @@ class TestMatrix:
 
     def test_row_col_as_list(self):
         self.m[1, 1] = 1
-        assert self.m.row_as_list(1) == [0, 1, 0, 0]
-        assert self.m.col_as_list(1) == [0, 1, 0, 0]
+        assert list(self.m.row_n_iter(1)) == [0, 1, 0, 0]
+        assert list(self.m.col_n_iter(1)) == [0, 1, 0, 0]
 
     @staticmethod
     def test_coordinate_to_index():
